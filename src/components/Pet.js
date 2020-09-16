@@ -9,11 +9,16 @@ class Pet extends React.Component {
     female: '♀'
   }
 
-  displayButton = {
-    false: "ui disabled button",
-    true: "ui primary button"
+  displayButton = ()=> {
+    switch(this.props.pet.isAdopted){
+      case true: return <button className="ui disabled button" >Already adopted</button>
+      break;
+      case false: return <button className="ui primary button" onClick={()=>this.props.onAdoptPet(this.props.pet.id)}>Adopt pet</button>
+      break;
+      default:
+        break;
+    }
   }
-
 
 
   render() {
@@ -33,8 +38,7 @@ class Pet extends React.Component {
           </div>
         </div>
         <div className="extra content">
-          <button className={this.displayButton[this.props.pet.isAdopted]}>Already adopted</button>
-          <button className={this.displayButton[!this.props.pet.isAdopted]} onClick={()=>this.props.onAdoptPet(this.props.pet.id)}>Adopt pet</button>
+          {this.displayButton()}
         </div>
       </div>
     )
